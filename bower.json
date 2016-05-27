@@ -22,7 +22,7 @@
     "test",
     "tests"
   ],
-  "main": ["./ui-grid.css", "./ui-grid.js"],
+  "main": ["dist/release/ui-grid.min.css", "dist/release/ui-grid.min.js"],
   "devDependencies": {
     "google-code-prettify": "~1.0.2",
     "jquery": "~1.8.0",
