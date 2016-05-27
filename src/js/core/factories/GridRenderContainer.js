@@ -427,6 +427,26 @@ angular.module('ui.grid')
   };
 
   GridRenderContainer.prototype.adjustRows = function adjustRows(scrollTop, scrollPercentage, postDataLoaded) {
+    // xpro
+    var cacheHeight = 0,
+        maxRows = this.minRowsToRender() + this.grid.options.excessRows,
+        // startRow = scrollTop > this.grid.options.rowHeight && scrollTop/this.grid.options.rowHeight > 10 ? Math.floor(scrollTop/this.grid.options.rowHeight) - 10 : 0,
+        i = 0;
+
+    if (this.renderedRows && this.renderedRows.length > 0) {
+        for(i=0;i<this.visibleRowCache.length;i++){
+            cacheHeight += this.visibleRowCache[i].height;
+            if (cacheHeight > scrollTop) {
+                this.prevRowScrollIndex = i !== 0 ? i - 1 : 0;
+                this.updateViewableRowRange([this.prevRowScrollIndex, maxRows += this.prevRowScrollIndex]);
+                break;
+            }
+        }
+    } else {
+        this.updateViewableRowRange([0, maxRows]);
+    }
+    
+    /*
     var self = this;
 
     var minRows = self.minRowsToRender();
@@ -479,6 +499,7 @@ angular.module('ui.grid')
     self.updateViewableRowRange(newRange);
 
     self.prevRowScrollIndex = rowIndex;
+    */
   };
 
   GridRenderContainer.prototype.adjustColumns = function adjustColumns(scrollLeft, scrollPercentage) {

@@ -111,15 +111,24 @@
           this.rowStyle = function (index) {
             var rowContainer = $scope.rowContainer;
             var colContainer = $scope.colContainer;
-
+            var height = 0,i;
             var styles = {};
 
             if (index === 0 && rowContainer.currentTopRow !== 0) {
+              // xpro
+                for(i=0;i<rowContainer.currentTopRow;i++){
+                    height += rowContainer.visibleRowCache[i].height;
+                }
+                styles['margin-top'] = height + 'px';
+              // 
+
+              /*
               // The row offset-top is just the height of the rows above the current top-most row, which are no longer rendered
               var hiddenRowWidth = (rowContainer.currentTopRow) * rowContainer.grid.options.rowHeight;
 
               // return { 'margin-top': hiddenRowWidth + 'px' };
               styles['margin-top'] = hiddenRowWidth + 'px';
+              */
             }
 
             if (colContainer.currentFirstColumn !== 0) {

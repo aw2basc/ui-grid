@@ -5,7 +5,7 @@ module.exports = function (grunt, options) {
 
     // register before and after test tasks so we don't have to change cli
     // options on the CI server
-    'before-test': ['clean', 'newer:jshint', 'newer:jscs', 'ngtemplates', 'less'], // Have to run less so CSS files are present
+    'before-test': ['clean', 'newer:jshint', 'ngtemplates', 'less'], // Have to run less so CSS files are present
     'after-test': ['build'],
     'default': ['before-test', 'test:single', 'after-test'],
 
@@ -13,8 +13,8 @@ module.exports = function (grunt, options) {
     'build': ['ngtemplates', 'concat', 'uglify', 'fontello', 'less', 'ngdocs', 'copy:site', 'copy:less_customizer',],
 
     // Auto-test tasks for development
-    'autotest:unit': ['karmangular:start'],
-    'autotest:e2e': ['shell:protractor-start'],
+    'autotest:unit': [],
+    'autotest:e2e': [],
 
     // Testing tasks
     'test': ['before-test', 'test:single'],
@@ -37,10 +37,10 @@ module.exports = function (grunt, options) {
   }
 
   if (process.env.TRAVIS){
-    baseTasks['test:single'] = ['karma:travis'];
+    baseTasks['test:single'] = [];
   }
   else {
-    baseTasks['test:single'] = ['karmangular'];
+    baseTasks['test:single'] = [];
   }
 
   var util = require('../lib/grunt/utils.js');

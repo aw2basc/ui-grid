@@ -283,6 +283,18 @@
        * @param {object} args the args from the event
        */
       handleScroll:  function (args) {
+        // xpro
+        var renderBody = args.grid.renderContainers.body;
+
+        if (args.grid.infiniteScroll && args.grid.infiniteScroll.dataLoading || args.source === 'ui.grid.adjustInfiniteScrollPosition') {
+        return;
+        }
+
+        if (renderBody.visibleRowCache.length - (renderBody.currentTopRow + renderBody.renderedRows.length) <= args.grid.options.infiniteScrollRowsFromEnd) {
+        service.loadData(args.grid);
+        }
+        
+        /*
         // don't request data if already waiting for data, or if source is coming from ui.grid.adjustInfiniteScrollPosition() function
         if ( args.grid.infiniteScroll && args.grid.infiniteScroll.dataLoading || args.source === 'ui.grid.adjustInfiniteScrollPosition' ){
           return;
@@ -314,6 +326,7 @@
             }
           }
         }
+        */
       },
 
 
@@ -327,6 +340,14 @@
        * @param {Grid} grid the grid we're working on
        */
       loadData: function (grid) {
+        // xpro
+        grid.infiniteScroll.previousVisibleRows = grid.renderContainers.body.visibleRowCache.length;
+        grid.infiniteScroll.direction = grid.scrollDirection;
+        delete grid.infiniteScroll.prevScrollTop;
+        grid.infiniteScroll.dataLoading = true;
+        grid.api.infiniteScroll.raise.needLoadMoreData();
+      
+        /*
         // save number of currently visible rows to calculate new scroll position later - we know that we want
         // to be at approximately the row we're currently at
         grid.infiniteScroll.previousVisibleRows = grid.renderContainers.body.visibleRowCache.length;
@@ -340,6 +361,7 @@
           grid.infiniteScroll.dataLoading = true;
           grid.api.infiniteScroll.raise.needLoadMoreData();
         }
+        */
       },
 
 
@@ -365,6 +387,12 @@
        * @returns {promise} a promise that is resolved when scrolling has finished
        */
       adjustScroll: function(grid){
+        // xpro
+        var promise = $q.defer();
+        promise.resolve();
+        return promise.promise;
+
+        /*
         var promise = $q.defer();
         $timeout(function () {
           var newPercentage, viewportHeight, rowHeight, newVisibleRows, oldTop, newTop;
@@ -404,6 +432,7 @@
         }, 0);
 
         return promise.promise;
+        */
       },
 
 
