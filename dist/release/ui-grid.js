@@ -1,6 +1,6 @@
 /*!
- * ui-grid - v - 2016-06-01
- * Copyright (c) 2016 ; License: MIT 
+ * ui-grid - v - 2017-02-08
+ * Copyright (c) 2017 ; License: MIT 
  */
 
 (function () {
@@ -17288,12 +17288,6 @@ module.filter('px', function() {
                   var expandedRowElement = $compile(template)($scope);
                   $elm.append(expandedRowElement);
                   $scope.row.expandedRendered = true;
-              });
-            },
-
-            post: function ($scope, $elm, $attrs, uiGridCtrl) {
-              $scope.$on('$destroy', function() {
-                $scope.row.expandedRendered = false;
               });
             }
           };

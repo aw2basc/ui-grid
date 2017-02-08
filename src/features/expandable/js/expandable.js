@@ -445,12 +445,6 @@
                   $elm.append(expandedRowElement);
                   $scope.row.expandedRendered = true;
               });
-            },
-
-            post: function ($scope, $elm, $attrs, uiGridCtrl) {
-              $scope.$on('$destroy', function() {
-                $scope.row.expandedRendered = false;
-              });
             }
           };
         }
