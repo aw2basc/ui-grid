@@ -340,13 +340,6 @@
          * @param {GridCol} gridCol the column that we want to toggle
          *
          */
-        // toggleColumnVisibility: function( gridCol ) {
-        //   gridCol.colDef.visible = !( gridCol.colDef.visible === true || gridCol.colDef.visible === undefined );
-
-        //   gridCol.grid.refresh();
-        //   gridCol.grid.api.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
-        //   gridCol.grid.api.core.raise.columnVisibilityChanged( gridCol );
-        // }
         toggleColumnVisibility: function (gridCol) {
           gridCol.colDef.visible = !(gridCol.colDef.visible === true || gridCol.colDef.visible === undefined);
           service.refreshQue.push(service.gridRefresh);
