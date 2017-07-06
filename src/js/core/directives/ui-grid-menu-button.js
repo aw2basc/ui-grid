@@ -330,6 +330,13 @@ angular.module('ui.grid')
       }
     },
 
+    // custom Xceligent
+    debouncedRefresh: gridUtil.debounce(function(gridCol){
+      gridCol.grid.refresh();
+      gridCol.grid.api.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
+      gridCol.grid.api.core.raise.columnVisibilityChanged( gridCol );
+    },500),
+
     /**
      * @ngdoc method
      * @methodOf ui.grid.gridMenuService
@@ -340,12 +347,10 @@ angular.module('ui.grid')
      * @param {GridCol} gridCol the column that we want to toggle
      *
      */
+    // custom Xceligent
     toggleColumnVisibility: function( gridCol ) {
       gridCol.colDef.visible = !( gridCol.colDef.visible === true || gridCol.colDef.visible === undefined );
-
-      gridCol.grid.refresh();
-      gridCol.grid.api.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
-      gridCol.grid.api.core.raise.columnVisibilityChanged( gridCol );
+      service.debouncedRefresh(gridCol);
     }
   };
 
